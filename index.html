@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f6f1e7" />
+<title>给路过这里的你</title>
+<meta name="description" content="一封写给你的留言。" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="给路过这里的你" />
+<meta property="og:description" content="一封写给你的留言。" />
+<meta property="og:locale" content="zh_CN" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='8' width='26' height='18' rx='2' fill='none' stroke='%238a6a3b' stroke-width='1.6'/%3E%3Cpath d='M4 10l12 9 12-9' fill='none' stroke='%238a6a3b' stroke-width='1.6'/%3E%3C/svg%3E" />
+
+<!--
+  ┌──────────────────────────────────────────────────────────┐
+  │  ✏️  想改内容？全文只有 3 个地方需要改，都标了 ▲ 号      │
+  │     用记事本打开这个文件，改完保存，刷新网页即可。        │
+  └──────────────────────────────────────────────────────────┘
+-->
+<style>
+  :root {
+    --paper: #f6f1e7;
+    --ink: #2b2721;
+    --ink-soft: #5c554a;
+    --ink-faint: #9a9081;
+    --accent: #8a6a3b;
+    --rule: rgba(43, 39, 33, 0.18);
+    --glow: rgba(255, 205, 130, 0.30);
+    --grain-opacity: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17150f;
+      --ink: #ece4d4;
+      --ink-soft: #bcb2a0;
+      --ink-faint: #7d7466;
+      --accent: #c9a468;
+      --rule: rgba(236, 228, 212, 0.18);
+      --glow: rgba(201, 164, 104, 0.14);
+      --grain-opacity: 0.7;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 "Noto Sans CJK SC", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1.5rem, 6vw, 4rem) clamp(1.25rem, 7vw, 3rem);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* 纸面：暖光 + 极细纹理 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 55% at 50% 0%, var(--glow), transparent 70%),
+      radial-gradient(50% 40% at 100% 100%, rgba(138, 106, 59, 0.08), transparent 70%);
+    z-index: 0;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .note {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 34rem;
+    margin: auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+  }
+
+  /* 入场动效 */
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 140ms + 120ms);
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise { opacity: 1; transform: none; animation: none; }
+  }
+
+  .eyebrow {
+    margin: 0 0 1.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .eyebrow::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ▲ ①  标题 */
+  .title {
+    margin: 0;
+    font-family: Georgia, "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif;
+    font-weight: 500;
+    font-size: clamp(1.9rem, 6.2vw, 3rem);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.6rem 0 1.9rem;
+    color: var(--accent);
+  }
+
+  .ornament .line {
+    width: 100%;
+    max-width: 3.5rem;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    opacity: 0.6;
+  }
+
+  .ornament .line:last-child {
+    background: linear-gradient(to left, var(--accent), transparent);
+  }
+
+  .ornament svg { flex: none; }
+
+  /* ▲ ②  正文 */
+  .body {
+    font-size: clamp(1rem, 1.1vw + 0.82rem, 1.15rem);
+    line-height: 2.05;
+    color: var(--ink-soft);
+    letter-spacing: 0.015em;
+  }
+
+  .body p {
+    margin: 0 0 1.15em;
+    text-indent: 2em;
+  }
+
+  .body p:last-child { margin-bottom: 0; }
+
+  .body p:first-of-type::first-letter {
+    font-family: Georgia, "Songti SC", "STSong", "SimSun", serif;
+    font-size: 1.05em;
+    color: var(--ink);
+  }
+
+  /* ▲ ③  落款与日期 */
+  .sign {
+    margin: clamp(2rem, 6vw, 2.8rem) 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.45rem;
+    text-align: right;
+  }
+
+  .sign .who {
+    font-family: Georgia, "Songti SC", "STSong", "SimSun", serif;
+    font-size: 1.02rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+
+  .sign .when {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 30rem) {
+    body { padding-top: 2.5rem; }
+  }
+
+  /* 小屏高度不足时可滚动 */
+  @media (max-height: 34rem) and (min-width: 40rem) {
+    body { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<main class="note">
+
+  <p class="eyebrow rise" style="--i:0">a note for you</p>
+
+  <!-- ▲ ①  改这一行 = 网页的大标题 -->
+  <h1 class="title rise" style="--i:1">给路过这里的你</h1>
+
+  <div class="ornament rise" style="--i:2" aria-hidden="true">
+    <span class="line"></span>
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+      <rect x="4.5" y="0.4" width="5.8" height="5.8" transform="rotate(45 4.5 0.4)" stroke="currentColor" stroke-width="0.9"/>
+    </svg>
+    <span class="line"></span>
+  </div>
+
+  <!-- ▲ ②  改下面的段落 = 留言正文（一段一个 <p>，可增可删） -->
+  <div class="body rise" style="--i:3">
+    <p>如果你点开了这个链接，说明我刚好想让你看到这些话。</p>
+    <p>我不太擅长当面把话说完整，所以把它们写在这里，慢慢地、认真地写。</p>
+    <p>愿你读到的时候，刚好是心情不错的一天。</p>
+  </div>
+
+  <!-- ▲ ③  改下面两行 = 署名和日期 -->
+  <footer class="sign rise" style="--i:4">
+    <span class="who">—— 一个不太会说话的人</span>
+    <span class="when">2026 年 11 月 2 日</span>
+  </footer>
+
+</main>
+
+</body>
+</html>
